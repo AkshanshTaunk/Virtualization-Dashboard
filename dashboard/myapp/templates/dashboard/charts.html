@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block extra_css %}
+    <style xmlns="http://www.w3.org/1999/html">
+    </style>
+{% endblock %}
+{% block page_title %}
+ Chart
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body d-flex justify-content-center align-items-center">
+                        <h5 class="card-title mr-5">Pie Chart for Intensity</h5>
+                        <div id="sparkline-chart"></div>
+                        {% block extra_script %}
+                        <script>
+                            $(document).ready(function(){
+                                var intensities = {{ intensities|safe }};  
+                                var uniqueIntensities = [...new Set(intensities)];
+                                $("#sparkline-chart").sparkline(uniqueIntensities, {
+                                    type: 'pie',
+                                    height: '300px',
+                                    width: '400px' 
+                                });
+                            });
+                        </script>
+                        {% endblock extra_script %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
